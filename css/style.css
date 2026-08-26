@@ -1,1 +1,457 @@
+/* =========================================================
+   PayReg Burundi — thème sombre
+   Palette : charbon bleuté + émeraude (croissance) + or (confiance)
+   ========================================================= */
+
+:root{
+  --bg:            #0a0e13;
+  --bg-panel:      #0d1420;
+  --surface:       #121a26;
+  --surface-2:     #182131;
+  --border:        #202a3a;
+  --border-strong: #2b3850;
+
+  --text:          #eef2f5;
+  --text-muted:    #8b98a8;
+  --text-faint:    #5c6a7d;
+
+  --accent:        #2bb673;   /* émeraude — croissance / validation */
+  --accent-dim:    #1d8a58;
+  --accent-soft:   rgba(43,182,115,0.12);
+
+  --gold:          #e3a857;   /* or — confiance / reçu */
+  --gold-soft:     rgba(227,168,87,0.12);
+
+  --danger:        #e0666b;
+
+  --whatsapp:      #25d366;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+*{ box-sizing: border-box; }
+
+html,body{
+  margin:0; padding:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+a{ color: inherit; text-decoration: none; }
+
+/* ---------- Layout général ---------- */
+.page{
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- Panneau de marque (gauche) ---------- */
+.panel-brand{
+  background:
+    radial-gradient(circle at 20% 0%, rgba(43,182,115,0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg-panel), #080b10);
+  border-right: 1px solid var(--border);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.brand-mark{ display:flex; align-items:center; gap:10px; }
+.brand-dot{
+  width:10px; height:10px; border-radius:50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.brand-name{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+.brand-accent{ color: var(--accent); }
+.brand-tagline{
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+  max-width: 26ch;
+}
+
+/* ---------- Widget météo ---------- */
+.weather-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 18px 16px;
+}
+.weather-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 12px;
+}
+.weather-label{
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.weather-refresh{
+  cursor:pointer;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height:1;
+  transition: transform .3s ease, color .2s ease;
+}
+.weather-refresh:hover{ color: var(--accent); }
+.weather-refresh.spin{ animation: spin 0.7s linear; }
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+.weather-loading, .weather-error{
+  color: var(--text-faint);
+  font-size: 13.5px;
+}
+
+.weather-main{ display:flex; align-items:center; gap:14px; }
+.weather-icon{ font-size: 34px; line-height:1; }
+.weather-temp{
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.weather-desc{ font-size: 13px; color: var(--text-muted); margin-top:2px; }
+
+.weather-meta{
+  display:flex; gap:16px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-strong);
+}
+.weather-meta div{ font-size: 12px; color: var(--text-faint); }
+.weather-meta b{ display:block; color: var(--text); font-size: 13.5px; font-weight:600; margin-top:2px; }
+
+/* ---------- Liste de confiance ---------- */
+.trust-list{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-direction:column; gap:12px;
+}
+.trust-list li{
+  font-size: 13.5px;
+  color: var(--text-muted);
+  display:flex; align-items:flex-start; gap:10px;
+  line-height:1.4;
+}
+.trust-icon{
+  flex-shrink:0;
+  width:18px; height:18px;
+  border-radius:50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  display:flex; align-items:center; justify-content:center;
+  margin-top:1px;
+}
+
+.brand-bottom{ margin-top:auto; }
+.brand-quote{
+  font-size: 13px;
+  color: var(--text-faint);
+  font-style: italic;
+  border-left: 2px solid var(--gold);
+  padding-left: 12px;
+  line-height:1.5;
+}
+
+/* ---------- Panneau formulaire (droite) ---------- */
+.panel-form{
+  padding: 48px 56px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 40px;
+  align-items:start;
+}
+
+.form-wrap{ max-width: 640px; }
+
+.form-header h1{
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.form-header p{
+  color: var(--text-muted);
+  font-size: 14.5px;
+  margin: 0 0 32px;
+}
+
+.field-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field{ margin-bottom: 18px; }
+.field label{
+  display:block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field input[type="number"],
+.field select,
+.field textarea{
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field input.invalid,
+.field textarea.invalid{
+  border-color: var(--danger);
+}
+
+.field textarea{ resize: vertical; min-height: 70px; font-family: var(--font-body); }
+
+.field-error{
+  display:block;
+  min-height: 16px;
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* ---------- Sélecteur de mode de paiement ---------- */
+.method-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.method-option{
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 12px 8px;
+  text-align:center;
+  cursor:pointer;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all .15s ease;
+}
+.method-option input{ position:absolute; opacity:0; }
+.method-option:has(input:checked){
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--accent-soft);
+}
+.method-option:hover{ border-color: var(--border-strong); }
+
+/* ---------- Actions ---------- */
+.form-actions{
+  display:flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-primary{
+  flex:1;
+  min-width: 200px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dim));
+  color: #06140d;
+  font-weight: 700;
+  font-size: 14.5px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .2s ease;
+  box-shadow: 0 8px 20px -8px rgba(43,182,115,0.55);
+}
+.btn-primary:hover{ transform: translateY(-1px); }
+.btn-primary:active{ transform: translateY(0); }
+.btn-primary:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+
+.btn-whatsapp{
+  display:flex; align-items:center; gap:8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--whatsapp);
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  transition: border-color .15s ease, background .15s ease;
+}
+.btn-whatsapp:hover{ border-color: var(--whatsapp); background: rgba(37,211,102,0.08); }
+
+.form-status{
+  margin-top: 14px;
+  font-size: 13.5px;
+  min-height: 18px;
+}
+.form-status.success{ color: var(--accent); }
+.form-status.error{ color: var(--danger); }
+
+/* ---------- Reçu / ticket ---------- */
+.receipt{
+  position: sticky;
+  top: 48px;
+  background:
+    repeating-linear-gradient(135deg, rgba(227,168,87,0.04) 0 2px, transparent 2px 14px),
+    var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow:hidden;
+}
+.receipt::before, .receipt::after{
+  content:"";
+  position:absolute;
+}
+.receipt-inner{ padding: 26px 24px; position:relative; }
+
+.receipt-head{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom: 18px;
+}
+.receipt-eyebrow{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+.receipt-id{
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--gold);
+  background: var(--gold-soft);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.receipt-amount{
+  display:flex; align-items: baseline; gap: 8px;
+  margin-bottom: 4px;
+}
+.receipt-currency{
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+  font-size: 14px;
+}
+.receipt-value{
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  word-break: break-all;
+}
+
+.receipt-divider{
+  height:1px;
+  background: var(--border);
+  margin: 18px 0;
+}
+.receipt-divider.dashed{
+  background: none;
+  border-top: 1px dashed var(--border-strong);
+}
+
+.receipt-details{ margin:0; display:flex; flex-direction:column; gap: 11px; }
+.receipt-details div{ display:flex; justify-content:space-between; gap:12px; }
+.receipt-details dt{ color: var(--text-faint); font-size: 12.5px; }
+.receipt-details dd{
+  margin:0; color: var(--text);
+  font-size: 13px; font-weight:500;
+  text-align:right;
+  font-family: var(--font-mono);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px;
+}
+
+.receipt-footer{
+  font-size: 11.5px;
+  color: var(--text-faint);
+  line-height:1.5;
+  margin:0;
+}
+
+/* ---------- Bouton flottant WhatsApp ---------- */
+.whatsapp-float{
+  position: fixed;
+  bottom: 26px; right: 26px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  color: #06140d;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 10px 24px -6px rgba(37,211,102,0.55);
+  transition: transform .15s ease;
+  z-index: 50;
+}
+.whatsapp-float:hover{ transform: scale(1.06); }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 1100px){
+  .panel-form{
+    grid-template-columns: 1fr;
+  }
+  .receipt{ position:static; order: -1; }
+}
+
+@media (max-width: 860px){
+  .page{ grid-template-columns: 1fr; }
+  .panel-brand{
+    border-right:none;
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+  .brand-bottom{ margin-top: 8px; }
+  .panel-form{ padding: 32px 20px 80px; }
+}
+
+@media (max-width: 560px){
+  .field-row{ grid-template-columns: 1fr; gap:0; }
+  .method-grid{ grid-template-columns: repeat(2, 1fr); }
+  .form-header h1{ font-size: 24px; }
+  .form-actions{ flex-direction:column; }
+  .btn-whatsapp{ justify-content:center; }
+  .receipt-value{ font-size: 26px; }
+}
 
