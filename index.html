@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayReg Burundi — Enregistrement de paiement</title>
+<meta name="description" content="Enregistrez vos paiements en toute sécurité — Burundi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===================== PANNEAU GAUCHE ===================== -->
+  <aside class="panel-brand">
+    <div class="brand-top">
+      <div class="brand-mark">
+        <span class="brand-dot"></span>
+        <span class="brand-name">PayReg<span class="brand-accent">.bi</span></span>
+      </div>
+      <p class="brand-tagline">Enregistrement de paiements — simple, tracé, vérifiable.</p>
+    </div>
+
+    <!-- Widget météo Burundi -->
+    <div class="weather-card" id="weatherCard" aria-live="polite">
+      <div class="weather-head">
+        <span class="weather-label">Météo — Bujumbura, Burundi</span>
+        <span class="weather-refresh" id="weatherRefresh" title="Actualiser">&#8635;</span>
+      </div>
+      <div class="weather-body" id="weatherBody">
+        <div class="weather-loading">Chargement de la météo…</div>
+      </div>
+    </div>
+
+    <!-- Repère / statistiques -->
+    <ul class="trust-list">
+      <li><span class="trust-icon">✓</span> Données chiffrées et stockées en base sécurisée</li>
+      <li><span class="trust-icon">✓</span> Confirmation immédiate par reçu numérique</li>
+      <li><span class="trust-icon">✓</span> Assistance directe via WhatsApp</li>
+    </ul>
+
+    <div class="brand-bottom">
+      <p class="brand-quote">« Un paiement bien enregistré est une confiance bien gardée. »</p>
+    </div>
+  </aside>
+
+  <!-- ===================== PANNEAU FORMULAIRE ===================== -->
+  <main class="panel-form">
+    <div class="form-wrap">
+
+      <header class="form-header">
+        <h1>Enregistrer un paiement</h1>
+        <p>Remplissez les informations ci-dessous. Un reçu récapitulatif sera généré à droite.</p>
+      </header>
+
+      <form id="paymentForm" class="payment-form" novalidate>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fullName">Nom complet</label>
+            <input type="text" id="fullName" name="fullName" placeholder="ex. Jeanne Nkurunziza" required>
+            <span class="field-error" data-for="fullName"></span>
+          </div>
+          <div class="field">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+257 79 000 000" required>
+            <span class="field-error" data-for="phone"></span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" name="email" placeholder="nom@exemple.com" required>
+            <span class="field-error" data-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="reference">Référence / Motif</label>
+            <input type="text" id="reference" name="reference" placeholder="ex. Facture #0245" required>
+            <span class="field-error" data-for="reference"></span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="amount">Montant</label>
+            <input type="number" id="amount" name="amount" min="0" step="0.01" placeholder="0.00" required>
+            <span class="field-error" data-for="amount"></span>
+          </div>
+          <div class="field">
+            <label for="currency">Devise</label>
+            <select id="currency" name="currency">
+              <option value="BIF">BIF — Franc burundais</option>
+              <option value="USD">USD — Dollar américain</option>
+              <option value="EUR">EUR — Euro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="method">Mode de paiement</label>
+          <div class="method-grid" id="methodGrid">
+            <label class="method-option">
+              <input type="radio" name="method" value="Lumicash" checked>
+              <span>Lumicash</span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="method" value="EcoCash">
+              <span>EcoCash</span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="method" value="Virement bancaire">
+              <span>Virement</span>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="method" value="Espèces">
+              <span>Espèces</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">Note (optionnel)</label>
+          <textarea id="note" name="note" rows="3" placeholder="Informations complémentaires…"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span>Enregistrer le paiement</span>
+          </button>
+          <a href="#" class="btn-whatsapp" id="whatsappBtn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.23.6 4.4 1.75 6.3L4 29l7.87-1.7a12.9 12.9 0 0 0 4.15.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.04 8.4 22.64 3 16.02 3zm0 21.94c-1.29 0-2.56-.34-3.67-.98l-.26-.15-4.67 1 1.02-4.55-.17-.28a9.86 9.86 0 0 1-1.53-5.28c0-5.47 4.45-9.92 9.94-9.92 2.65 0 5.15 1.03 7.02 2.9a9.86 9.86 0 0 1 2.91 7.02c0 5.47-4.45 9.92-9.99 9.92zm5.46-7.44c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.63-.92-2.23-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.5 1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+        </div>
+
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+
+    <!-- ===================== TICKET / REÇU ===================== -->
+    <aside class="receipt" id="receipt" aria-label="Aperçu du reçu">
+      <div class="receipt-inner">
+        <div class="receipt-head">
+          <span class="receipt-eyebrow">Reçu — Aperçu</span>
+          <span class="receipt-id" id="receiptId">#EN COURS</span>
+        </div>
+        <div class="receipt-amount">
+          <span class="receipt-currency" id="receiptCurrency">BIF</span>
+          <span class="receipt-value" id="receiptAmount">0.00</span>
+        </div>
+        <div class="receipt-divider"></div>
+        <dl class="receipt-details">
+          <div><dt>Nom</dt><dd id="receiptName">—</dd></div>
+          <div><dt>Téléphone</dt><dd id="receiptPhone">—</dd></div>
+          <div><dt>Mode</dt><dd id="receiptMethod">Lumicash</dd></div>
+          <div><dt>Référence</dt><dd id="receiptRef">—</dd></div>
+          <div><dt>Date</dt><dd id="receiptDate">—</dd></div>
+        </dl>
+        <div class="receipt-divider dashed"></div>
+        <p class="receipt-footer">Ce reçu est généré localement et confirmé après enregistrement en base de données.</p>
+      </div>
+    </aside>
+
+  </main>
+</div>
+
+<!-- Bouton flottant WhatsApp -->
+<a href="#" class="whatsapp-float" id="whatsappFloat" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+  <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.23.6 4.4 1.75 6.3L4 29l7.87-1.7a12.9 12.9 0 0 0 4.15.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.04 8.4 22.64 3 16.02 3z"/></svg>
+</a>
+
+<script src="js/app.js"></script>
+</body>
+</html>

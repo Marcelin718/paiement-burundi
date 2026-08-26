@@ -1,0 +1,14 @@
+# Environnement / secrets
+.env
+php/config.local.php
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Dépendances éventuelles
+/vendor/
+/node_modules/
+
+# Logs
+*.log
